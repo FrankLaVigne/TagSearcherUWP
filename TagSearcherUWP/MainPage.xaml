@@ -8,6 +8,33 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="549*"/>
+        </Grid.RowDefinitions>
 
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock FontSize="24" Margin="5">Twitter Tag Searcher</TextBlock>
+            <Button Name="btnLogin" Click="btnLogin_Click" >Log In</Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"  Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBox Margin="5,0,5,0"  MinWidth="140" Width="156" ></TextBox>
+            <Button Name="btnSearch" Click="btnSearch_Click">Search</Button>
+        </StackPanel>
+
+
+        <Pivot Name="pvtSearches"
+               Title="Searches"
+               Grid.Row="3"></Pivot>
+        
+        <!--<controls:BladeView Name="bladeView" 
+                            Grid.Row="2"
+                            Margin="12"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+        </controls:BladeView>-->
     </Grid>
 </Page>
