@@ -4,37 +4,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TagSearcherUWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="56*"/>
             <RowDefinition Height="35*"/>
             <RowDefinition Height="549*"/>
         </Grid.RowDefinitions>
-
-
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
             <TextBlock FontSize="24" Margin="5">Twitter Tag Searcher</TextBlock>
             <Button Name="btnLogin" Click="btnLogin_Click" >Log In</Button>
         </StackPanel>
-
-        <StackPanel Grid.Row="1"  Orientation="Horizontal" VerticalAlignment="Center">
-            <TextBox Margin="5,0,5,0"  MinWidth="140" Width="156" ></TextBox>
+        <StackPanel Name="splSearch" Grid.Row="1"  Orientation="Horizontal" VerticalAlignment="Center" Visibility="Collapsed">
+            <TextBox Name="txtSearch" Margin="5,0,5,0"  MinWidth="140" Width="156" ></TextBox>
             <Button Name="btnSearch" Click="btnSearch_Click">Search</Button>
         </StackPanel>
-
-
-        <Pivot Name="pvtSearches"
-               Title="Searches"
-               Grid.Row="3"></Pivot>
-        
-        <!--<controls:BladeView Name="bladeView" 
-                            Grid.Row="2"
-                            Margin="12"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch">
-        </controls:BladeView>-->
+        <controls:BladeView Name="bladeView" Grid.Row="2" Margin="12" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <controls:BladeItem x:Name="DummyBlade" IsOpen="False" />
+        </controls:BladeView>
     </Grid>
 </Page>

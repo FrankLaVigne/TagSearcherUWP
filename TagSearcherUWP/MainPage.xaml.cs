@@ -1,10 +1,12 @@
 ﻿using Microsoft.Toolkit.Uwp.Services.Twitter;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 //using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -24,62 +26,61 @@ namespace TagSearcherUWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private TwitterUser _twitterUser;
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            if (IsTwitterAccountActive())
+            {
+                splSearch.Visibility = Visibility.Visible;
+                btnLogin.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                splSearch.Visibility = Visibility.Collapsed;
+                btnLogin.Visibility = Visibility.Visible;
+            }
         }
 
 
-        private async void TwitterLogin()
+        private bool IsTwitterAccountActive()
+        {
+            try
+            {
+                var currentScreenName = TwitterService.Instance.UserScreenName;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
+        private async void btnLogin_Click(object sender, RoutedEventArgs e)
         {
 
-            TwitterService.Instance.Initialize("", "", "");
+            TwitterService.Instance.Initialize(
+                "FsrvZnvsDbfpo8JrmTtPFHjZt",
+                "bWh44797GNgzGzAGqWedXzpnJa4hSLbX832MUBJshOQIbAx28v",
+                "http://www.franksworld.com");
 
             // Login to Twitter
-            if (!await TwitterService.Instance.LoginAsync())
+            if (await TwitterService.Instance.LoginAsync())
             {
-                return;
+                splSearch.Visibility = Visibility.Visible;
             }
-
-            // Get current user info
-            var user = await TwitterService.Instance.GetUserAsync();
-            //ProfileImage.DataContext = user;
-
-            // Get user timeline
-            //ListView.ItemsSource = await TwitterService.Instance.GetUserTimeLineAsync(user.ScreenName, 50);
-
-            // Post a tweet
-            await TwitterService.Instance.TweetStatusAsync("");
-
-            // Post a tweet with a picture
-            //await TwitterService.Instance.TweetStatusAsync(TweetText.Text, stream);
-
-            // Search for a specific tag
-            //ListView.ItemsSource = await TwitterService.Instance.SearchAsync(TagText.Text, 50);
-
-        }
-
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            //BladeItem bi = new BladeItem();
-            //bi.Title = "Yay";
-
-            //bladeView.Items.Add(bi);
-
-            PivotItem pi = new PivotItem();
-            pi.Header = "Yay!";
-
-            pi.Content = new SearchResults();
-
-            this.pvtSearches.Items.Add(pi);
-
-
-
+            BladeItem bi = new BladeItem();
+            bi.Title = txtSearch.Text;
+            bi.Content = new SearchResults(txtSearch.Text);
+            bladeView.Items.Add(bi);
         }
+
     }
 }
