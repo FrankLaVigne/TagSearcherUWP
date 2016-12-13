@@ -11,7 +11,7 @@
     >
 
     <Grid>
-        <ListView Name="lvSearchResults" Width="350" >
+        <ListView Name="lvSearchResults" Width="350" RightTapped="lvSearchResults_RightTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,4,4,0">
@@ -23,9 +23,15 @@
                             <TextBlock Text="{Binding User.Name}"></TextBlock>
                         </StackPanel>
                     </StackPanel>
-                    
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.Resources>
+                <MenuFlyout x:Name="mfCopyMenu">
+                    <MenuFlyout.Items>
+                        <MenuFlyoutItem Name="mfiCopy" Text="Copy" Click="mfiCopy_Click"/>
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </ListView.Resources>
         </ListView>
 
 
