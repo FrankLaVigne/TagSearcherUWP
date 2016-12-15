@@ -61,7 +61,9 @@ namespace TagSearcherUWP
 
         private async void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-
+        
+            // these keys have been disabled.
+            // go to https://apps.twitter.com/ to generate your own
             TwitterService.Instance.Initialize(
                 "FsrvZnvsDbfpo8JrmTtPFHjZt",
                 "bWh44797GNgzGzAGqWedXzpnJa4hSLbX832MUBJshOQIbAx28v",
